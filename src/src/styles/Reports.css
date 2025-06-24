@@ -32,10 +32,13 @@
   .reports-table table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .reports-table {
+    margin: 1rem;
   }
   
   .reports-table th,

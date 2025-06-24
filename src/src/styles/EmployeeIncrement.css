@@ -5,6 +5,10 @@
     gap: 2rem;
     margin: 1rem;
   }
+
+  .step-increment-table{
+    margin: 1rem;
+  }
   
   .increment-content{
     width: 70rem;
