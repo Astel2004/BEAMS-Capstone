@@ -1,0 +1,60 @@
+/* Report Controls */
+.report-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .report-controls select {
+    margin-left: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .generate-report-button {
+    padding: 0.5rem 1rem;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .generate-report-button:hover {
+    background-color: #16a085;
+  }
+  
+  /* Reports Table */
+  .reports-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reports-table th,
+  .reports-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .reports-table th {
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .reports-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .reports-table tr:hover {
+    background-color: #f1f1f1;
+  }
