@@ -157,20 +157,47 @@
   padding: 2rem 2.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.2);
-  min-width: 350px;
-  max-width: 90vw;
+  min-width: unset;
+  max-width: unset;
+  width: auto;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: auto;
+  max-height: 90vh;
+}
+
+.modal-content h3 {
+  margin: 0 0 1rem;
+  font-size: 2.5rem;
+  color: #333;
 }
 
 /* Add Employee Form Styles */
+.add-employee-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 650px;
+  box-sizing: border-box;
+}
+
 .add-employee-form label {
   display: block;
   margin-bottom: 0.7rem;
   font-weight: 500;
 }
 
+.add-employee-form legend {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
 .add-employee-form input,
 .add-employee-form select {
   width: 100%;
+  max-width: 300px;
   padding: 0.4rem 0.7rem;
   margin-top: 0.2rem;
   margin-bottom: 0.8rem;
@@ -179,9 +206,48 @@
   font-size: 1rem;
 }
 
+.add-employee-form fieldset {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.employee-info1,
+.employee-info2 {
+  flex: 1 1 220px;
+  min-width: 180px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.address1,
+.address2 {
+  flex: 1 1 220px;
+  min-width: 180px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-employee-form legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
 .modal-actions {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 1rem;
 }

@@ -9,13 +9,24 @@ const EmployeeRecordsComp = () => {
   const [activeEmployees, setActiveEmployees] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
-    name: "",
+    surname: "",
+    firstname: "",
+    middlename: "",
+    extension: "",
+    civilStatus: "",
+    citizenship: "",
+    mobileNo: "",
     email: "",
     password: "",
     contact: "",
     birthdate: "",
     gender: "",
-    address: "",
+    address: {
+      province: "",
+      city: "",
+      zipCode: "",
+      barangay: "",
+    },
   });
   const navigate = useNavigate();
 
@@ -51,18 +62,37 @@ const EmployeeRecordsComp = () => {
   const handleCloseModal = () => {
     setShowAddModal(false);
     setNewEmployee({
-      name: "",
+      surname: "",
+      firstname: "",
+      middlename: "",
+      extension: "",
+      civilStatus: "",
+      citizenship: "",
+      mobileNo: "",
       email: "",
       password: "",
       contact: "",
       birthdate: "",
       gender: "",
-      address: "",
+      address: {
+        province: "",
+        city: "",
+        zipCode: "",
+        barangay: "",
+      },
     });
   };
 
   const handleInputChange = (e) => {
-    setNewEmployee({ ...newEmployee, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (["province", "city", "zipCode", "barangay"].includes(name)) {
+      setNewEmployee({
+        ...newEmployee,
+        address: { ...newEmployee.address, [name]: value }
+      });
+    } else {
+      setNewEmployee({ ...newEmployee, [name]: value });
+    }
   };
 
   const handleAddEmployeeSubmit = (e) => {
@@ -128,18 +158,78 @@ const EmployeeRecordsComp = () => {
             <div className="modal-content">
               <h3>Add New Employee</h3>
               <form onSubmit={handleAddEmployeeSubmit} className="add-employee-form">
+                <fieldset>
+                  <legend>Employee Information</legend>
+                <div className="employee-info1">
                 <label>
-                  Full Name:
+                  Surname:
                   <input
                     type="text"
-                    name="name"
-                    value={newEmployee.name}
+                    name="surname"
+                    value={newEmployee.surname}
                     onChange={handleInputChange}
                     required
                   />
                 </label>
                 <label>
-                  Email:
+                  First Name:
+                  <input
+                    type="text"
+                    name="firstname"
+                    value={newEmployee.firstname}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Middle Name:
+                  <input
+                    type="text"
+                    name="middlename"
+                    value={newEmployee.middlename}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label>
+                  Extension:
+                  <input
+                    type="text"
+                    name="extension"
+                    value={newEmployee.extension}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label>
+                  Civil Status:
+                  <input
+                    type="text"
+                    name="civilStatus"
+                    value={newEmployee.civilStatus}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label>
+                  Citizenship:
+                  <input
+                    type="text"
+                    name="citizenship"
+                    value={newEmployee.citizenship}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                </div>
+                <div className="employee-info2">
+                <label>
+                  Mobile No.:
+                  <input
+                    type="text"
+                    name="mobileNo"
+                    value={newEmployee.mobileNo}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label>
+                  Email Address:
                   <input
                     type="email"
                     name="email"
@@ -187,16 +277,65 @@ const EmployeeRecordsComp = () => {
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
-                </label>
-                <label>
-                  Address:
-                  <input
-                    type="text"
-                    name="address"
-                    value={newEmployee.address}
-                    onChange={handleInputChange}
-                  />
-                </label>
+                </label>                  
+                </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Address</legend>
+                  <div className="address1"> 
+                  <label>
+                    Province:
+                    <input
+                      type="text"
+                      name="province"
+                      value={newEmployee.address.province}
+                      onChange={e => setNewEmployee({
+                        ...newEmployee,
+                        address: { ...newEmployee.address, province: e.target.value }
+                      })}
+                    />
+                  </label>
+                  <label>
+                    City/Municipality:
+                    <input
+                      type="text"
+                      name="city"
+                      value={newEmployee.address.city}
+                      onChange={e => setNewEmployee({
+                        ...newEmployee,
+                        address: { ...newEmployee.address, city: e.target.value }
+                      })}
+                    />
+                  </label>
+                  </div>
+                  <div className="address2">
+                    <label>
+                    Zip Code:
+                    <input
+                      type="text"
+                      name="zipCode"
+                      value={newEmployee.address.zipCode}
+                      onChange={e => setNewEmployee({
+                        ...newEmployee,
+                        address: { ...newEmployee.address, zipCode: e.target.value }
+                      })}
+                    />
+                  </label>
+                  <label>
+                    Barangay:
+                    <input
+                      type="text"
+                      name="barangay"
+                      value={newEmployee.address.barangay}
+                      onChange={e => setNewEmployee({
+                        ...newEmployee,
+                        address: { ...newEmployee.address, barangay: e.target.value }
+                      })}
+                    />
+                  </label>
+                  </div>
+                </fieldset>
                 <div className="modal-actions">
                   <button type="submit" className="add-employee-button">
                     Add
