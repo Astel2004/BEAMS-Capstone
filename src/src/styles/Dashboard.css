@@ -46,7 +46,7 @@
   cursor: pointer;
   padding: 1.5rem;
   border: solid 1px #333;
-  text-align: center;
+  text-align: left;
   background-color: #34495e;
   transition: background-color 0.3s ease;
 }
