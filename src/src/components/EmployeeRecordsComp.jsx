@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const EmployeeRecordsComp = () => {
   const [activeEmployees, setActiveEmployees] = useState([]);
-  const [inactiveEmployees, setInactiveEmployees] = useState([]);
-  const [dueForStepIncrement, setDueForStepIncrement] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
     name: "",
@@ -37,8 +35,6 @@ const EmployeeRecordsComp = () => {
         const response = await fetch("http://localhost:5000/api/employees");
         const data = await response.json();
         setActiveEmployees(data.filter((employee) => employee.status === "Active"));
-        setInactiveEmployees(data.filter((employee) => employee.status === "Inactive"));
-        setDueForStepIncrement(data.filter((employee) => parseInt(employee.step.replace("Step ", "")) < 5));
       } catch (error) {
         console.error("Error fetching employee records:", error);
       }
@@ -214,19 +210,18 @@ const EmployeeRecordsComp = () => {
           </div>
         )}
 
-        {/* Active Employees Table */}
+        {/* Employees Table */}
         <div className="employee-table">
-          <h3>Active Employees</h3>
+          <h3>Employees</h3>
           <table>
             <thead>
               <tr>
                 <th>Employee Id</th>
                 <th>Full Name</th>
+                <th>Email Address</th>
                 <th>Position</th>
-                <th>Department</th>
-                <th>Step</th>
+                <th>Current Step</th>
                 <th>Status</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -252,94 +247,6 @@ const EmployeeRecordsComp = () => {
               ) : (
                 <tr>
                   <td colSpan="7">No active employees found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Inactive Employees Table */}
-        <div className="employee-table">
-          <h3>Inactive Employees</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Employee Id</th>
-                <th>Full Name</th>
-                <th>Position</th>
-                <th>Department</th>
-                <th>Step</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inactiveEmployees.length > 0 ? (
-                inactiveEmployees.map((employee) => (
-                  <tr key={employee.id}>
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.position}</td>
-                    <td>{employee.department}</td>
-                    <td>{employee.step}</td>
-                    <td>{employee.status}</td>
-                    <td>
-                      <button
-                        className="view-button"
-                        onClick={() => handleViewClick(employee.id)}
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7">No inactive employees found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Employees Due for Step Increment Table */}
-        <div className="employee-table">
-          <h3>Employees Due for Step Increment</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Employee Id</th>
-                <th>Full Name</th>
-                <th>Position</th>
-                <th>Department</th>
-                <th>Step</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dueForStepIncrement.length > 0 ? (
-                dueForStepIncrement.map((employee) => (
-                  <tr key={employee.id}>
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.position}</td>
-                    <td>{employee.department}</td>
-                    <td>{employee.step}</td>
-                    <td>{employee.status}</td>
-                    <td>
-                      <button
-                        className="view-button"
-                        onClick={() => handleViewClick(employee.id)}
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7">No employees due for step increment found.</td>
                 </tr>
               )}
             </tbody>
