@@ -11,7 +11,7 @@ import EmployeeRecords from "./pages/EmployeeRecords.jsx"; // Import Employee Re
 import EmployeeProfileRecordComp from "./components/EmployeeProfileRecordComp.jsx"; // Import Employee Profile Record
 import StepIncrementComp from "./components/StepIncrementComp.jsx"; // Import Step Increment Tracker
 import Reports from "./pages/Reports.jsx"; // Import Reports and Analytics
-import SettingsComp from "./components/SettingsComp.jsx"; // Import Settings Component
+import SettingsComp from "./components/UsersComp.jsx"; // Import Settings Component
 import MyProfileComp from "./components/MyProfileComp.jsx"; // Import My Profile
 import MyDocumentsComp from "./components/MyDocumentsComp.jsx"; // Import My Documents
 import EmployeeIncrementComp from "./components/EmployeeIncrementComp.jsx"; // Import Employee Increment Tracker
@@ -40,7 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         {/* Route for Reports and Analytics */}
         <Route path="/reports" element={<Reports />} />
         {/* Route for Settings and User Management */}
-        <Route path="/settings" element={<SettingsComp />} />
+        <Route path="/users" element={<UsersComp />} />
         {/* Route for My Profile */}
         <Route path="/my-profile" element={<MyProfileComp />} />
         {/* Route for My Documents */}

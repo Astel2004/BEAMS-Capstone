@@ -44,7 +44,7 @@ const EmployeeProfileRecordComp = () => {
             <li onClick={() => navigate("/employee-records")}>Employee Records</li>
             <li onClick={() => navigate("/step-increment")}>Step Increment</li>
             <li onClick={() => navigate("/reports")}>Reports & Analytics</li>
-            <li onClick={() => navigate("/settings")}>Settings & User Management</li>
+            <li onClick={() => navigate("/users")}>User Management</li>
             <li onClick={() => navigate("/logout")}>Logout</li>
           </ul>
         </nav>

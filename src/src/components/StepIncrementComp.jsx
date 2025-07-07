@@ -58,7 +58,7 @@ const StepIncrementComp = () => {
             <li onClick={() => navigate("/employee-records")}>Employee Records</li>
             <li onClick={() => navigate("/step-increment")}>Step Increment Tracker</li>
             <li onClick={() => navigate("/reports")}>Reports & Analytics</li>
-            <li onClick={() => navigate("/settings")}>Settings & User Management</li>
+            <li onClick={() => navigate("/users")}>User Management</li>
             <li onClick={handleLogout}>Log out</li>
           </ul>
         </nav>
