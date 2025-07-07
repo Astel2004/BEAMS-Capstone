@@ -50,7 +50,7 @@ const StepIncrementComp = () => {
           <div className="icon">
             <img src={profileImage} alt="Profile" />
           </div>
-          <div className="profile-icon">HR Admin</div>
+          <div className="profile-icon">HR ADMIN</div>
         </div>
         <nav className="sidebar-nav">
           <ul>
