@@ -28,17 +28,35 @@
     background-color: #16a085;
   }
   
-  /* Reports Table */
+  /* Reports Content and Table */
+  /* Main content styling for Reports to match Dashboard */
+.reports-content {
+  flex: 1;
+  display: flex;
+  width: 70rem;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.reports-table {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 925px;
+  box-sizing: border-box;
+}
+
   .reports-table table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .reports-table {
-    margin: 1rem;
   }
   
   .reports-table th,

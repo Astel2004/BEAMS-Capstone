@@ -1,4 +1,26 @@
-/* Step Increment Table */
+/* Main content styling for Step Increment to match Dashboard */
+.step-increment-content {
+  flex: 1;
+  display: flex;
+  width: 70rem;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Table container to match dashboard card/table look */
+.step-increment-table {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 925px;
+  box-sizing: border-box;
+}
+
 .step-increment-table table {
     width: 100%;
     border-collapse: collapse;
