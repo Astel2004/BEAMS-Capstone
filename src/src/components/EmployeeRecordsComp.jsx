@@ -97,6 +97,27 @@ const EmployeeRecordsComp = () => {
 
   const handleAddEmployeeSubmit = (e) => {
     e.preventDefault();
+    // Validate required fields
+    const requiredFields = [
+      'surname', 'firstname', 'middlename', 'civilStatus', 'citizenship', 'mobileNo', 'email', 'birthdate', 'gender',
+      'province', 'city', 'zipCode', 'barangay'
+    ];
+    const missingFields = [];
+    requiredFields.forEach(field => {
+      if (["province", "city", "zipCode", "barangay"].includes(field)) {
+        if (!newEmployee.address[field] || newEmployee.address[field].trim() === "") {
+          missingFields.push(field.charAt(0).toUpperCase() + field.slice(1));
+        }
+      } else {
+        if (!newEmployee[field] || newEmployee[field].trim() === "") {
+          missingFields.push(field.charAt(0).toUpperCase() + field.slice(1));
+        }
+      }
+    });
+    if (missingFields.length > 0) {
+      alert("Please fill in all required fields: " + missingFields.join(", "));
+      return;
+    }
     // You can add API call here to save the new employee
     alert("Employee added:\n" + JSON.stringify(newEmployee, null, 2));
     handleCloseModal();
@@ -144,25 +165,29 @@ const EmployeeRecordsComp = () => {
           <h2>Employee Records</h2>
         </div>
 
-        {/* Add Employee and Delete Buttons above the Active Employees table */}
+        {/* Add Employee above the Active Employees table */}
         <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
           <button className="add-employee-button" onClick={handleAddEmployeeClick}>
             Add Employee
           </button>
-          <button className="delete-employee-button">Delete</button>
         </div>
 
         {/* Add Employee Modal */}
         {showAddModal && (
           <div className="modal-overlay">
             <div className="modal-content">
-              <h3>Add New Employee</h3>
+              <div className="Form-title">
+                <h3>Add New Employee</h3>
+              <p className="note">
+                (Note: Field with <span style={{color: 'red'}}>*</span> is required)
+              </p>
+              </div>
               <form onSubmit={handleAddEmployeeSubmit} className="add-employee-form">
-                <fieldset>
-                  <legend>Employee Information</legend>
+                <section className="info-section">
                 <div className="employee-info1">
+                <h4 className="section-title">Employee Information</h4>
                 <label>
-                  Surname:
+                  Surname: <span style={{color: 'red'}}>*</span>
                   <input
                     type="text"
                     name="surname"
@@ -172,7 +197,7 @@ const EmployeeRecordsComp = () => {
                   />
                 </label>
                 <label>
-                  First Name:
+                  First Name: <span style={{color: 'red'}}>*</span>
                   <input
                     type="text"
                     name="firstname"
@@ -182,12 +207,13 @@ const EmployeeRecordsComp = () => {
                   />
                 </label>
                 <label>
-                  Middle Name:
+                  Middle Name: <span style={{color: 'red'}}>*</span>
                   <input
                     type="text"
                     name="middlename"
                     value={newEmployee.middlename}
                     onChange={handleInputChange}
+                    required
                   />
                 </label>
                 <label>
@@ -200,36 +226,48 @@ const EmployeeRecordsComp = () => {
                   />
                 </label>
                 <label>
-                  Civil Status:
-                  <input
-                    type="text"
+                  Civil Status: <span style={{color: 'red'}}>*</span>
+                  <select
                     name="civilStatus"
                     value={newEmployee.civilStatus}
                     onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Citizenship:
-                  <input
-                    type="text"
-                    name="citizenship"
-                    value={newEmployee.citizenship}
-                    onChange={handleInputChange}
-                  />
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Separated">Separated</option>
+                    <option value="Other/s">Other/s</option>
+                  </select>
                 </label>
                 </div>
                 <div className="employee-info2">
                 <label>
-                  Mobile No.:
+                  Citizenship: <span style={{color: 'red'}}>*</span>
+                  <select
+                    name="citizenship"
+                    value={newEmployee.citizenship}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="Filipino">Filipino</option>
+                    <option value="Dual Citizenship">Dual Citizenship</option>
+                  </select>
+                </label>
+                <label>
+                  Mobile No.: <span style={{color: 'red'}}>*</span>
                   <input
                     type="text"
                     name="mobileNo"
                     value={newEmployee.mobileNo}
                     onChange={handleInputChange}
+                    required
                   />
                 </label>
                 <label>
-                  Email Address:
+                  Email Address: <span style={{color: 'red'}}>*</span>
                   <input
                     type="email"
                     name="email"
@@ -239,39 +277,22 @@ const EmployeeRecordsComp = () => {
                   />
                 </label>
                 <label>
-                  Password:
-                  <input
-                    type="password"
-                    name="password"
-                    value={newEmployee.password}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </label>
-                <label>
-                  Contact Number:
-                  <input
-                    type="text"
-                    name="contact"
-                    value={newEmployee.contact}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Birthdate:
+                  Birthdate: <span style={{color: 'red'}}>*</span>
                   <input
                     type="date"
                     name="birthdate"
                     value={newEmployee.birthdate}
                     onChange={handleInputChange}
+                    required
                   />
                 </label>
                 <label>
-                  Gender:
+                  Gender: <span style={{color: 'red'}}>*</span>
                   <select
                     name="gender"
                     value={newEmployee.gender}
                     onChange={handleInputChange}
+                    required
                   >
                     <option value="">Select</option>
                     <option value="Male">Male</option>
@@ -279,13 +300,13 @@ const EmployeeRecordsComp = () => {
                   </select>
                 </label>                  
                 </div>
-                </fieldset>
+                </section>
 
-                <fieldset>
-                  <legend>Address</legend>
-                  <div className="address1"> 
+                <section className="address-section">
+                  <div className="address"> 
+                    <h4 className="section-title">Address</h4>
                   <label>
-                    Province:
+                    Province: <span style={{color: 'red'}}>*</span>
                     <input
                       type="text"
                       name="province"
@@ -294,10 +315,11 @@ const EmployeeRecordsComp = () => {
                         ...newEmployee,
                         address: { ...newEmployee.address, province: e.target.value }
                       })}
+                      required
                     />
                   </label>
                   <label>
-                    City/Municipality:
+                    City/Municipality: <span style={{color: 'red'}}>*</span>
                     <input
                       type="text"
                       name="city"
@@ -306,12 +328,11 @@ const EmployeeRecordsComp = () => {
                         ...newEmployee,
                         address: { ...newEmployee.address, city: e.target.value }
                       })}
+                      required
                     />
                   </label>
-                  </div>
-                  <div className="address2">
                     <label>
-                    Zip Code:
+                    Zip Code: <span style={{color: 'red'}}>*</span>
                     <input
                       type="text"
                       name="zipCode"
@@ -320,10 +341,11 @@ const EmployeeRecordsComp = () => {
                         ...newEmployee,
                         address: { ...newEmployee.address, zipCode: e.target.value }
                       })}
+                      required
                     />
                   </label>
                   <label>
-                    Barangay:
+                    Barangay: <span style={{color: 'red'}}>*</span>
                     <input
                       type="text"
                       name="barangay"
@@ -332,11 +354,12 @@ const EmployeeRecordsComp = () => {
                         ...newEmployee,
                         address: { ...newEmployee.address, barangay: e.target.value }
                       })}
+                      required
                     />
                   </label>
                   </div>
-                </fieldset>
-                <div className="modal-actions">
+
+                  <div className="modal-actions">
                   <button type="submit" className="add-employee-button">
                     Add
                   </button>
@@ -344,6 +367,7 @@ const EmployeeRecordsComp = () => {
                     Cancel
                   </button>
                 </div>
+                </section>
               </form>
             </div>
           </div>
@@ -351,7 +375,7 @@ const EmployeeRecordsComp = () => {
 
         {/* Employees Table */}
         <div className="employee-table">
-          <h3>Employees</h3>
+          <h3>EMPLOYEE</h3>
           <table>
             <thead>
               <tr>
@@ -361,6 +385,7 @@ const EmployeeRecordsComp = () => {
                 <th>Position</th>
                 <th>Current Step</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
