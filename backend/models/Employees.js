@@ -17,7 +17,8 @@ const EmployeeSchema = new mongoose.Schema({
   mobileNo: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   birthdate: { type: Date, required: true },
-  gender: { type: String, required: true, enum: ['Male', 'Female'] }
+  gender: { type: String, required: true, enum: ['Male', 'Female'] },
+  address: { type: AddressSchema, required: true }
 });
 
 module.exports = mongoose.model('Employee', EmployeeSchema);

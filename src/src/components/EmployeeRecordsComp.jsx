@@ -423,27 +423,30 @@ const EmployeeRecordsComp = () => {
         {viewEmployee && (
           <div className="modal-overlay">
             <div className="modal-content">
-              <div className="Form-title">
+              <div className="View-Employee">
                 <h3>Employee Details</h3>
               </div>
               <div className="view-employee-details">
-                <p><b>Surname:</b> {viewEmployee.surname}</p>
-                <p><b>First Name:</b> {viewEmployee.firstname}</p>
-                <p><b>Middle Name:</b> {viewEmployee.middlename}</p>
-                <p><b>Extension:</b> {viewEmployee.extension || '-'}</p>
-                <p><b>Civil Status:</b> {viewEmployee.civilStatus}</p>
-                <p><b>Citizenship:</b> {viewEmployee.citizenship}</p>
-                <p><b>Mobile No.:</b> {viewEmployee.mobileNo}</p>
-                <p><b>Email:</b> {viewEmployee.email}</p>
-                <p><b>Birthdate:</b> {viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</p>
-                <p><b>Gender:</b> {viewEmployee.gender}</p>
-                <p><b>Address:</b></p>
-                <ul style={{marginLeft: '1.5em'}}>
+                <div className="info-list">
+                  <p><b>Surname:</b> {viewEmployee.surname}</p>
+                  <p><b>First Name:</b> {viewEmployee.firstname}</p>
+                  <p><b>Middle Name:</b> {viewEmployee.middlename}</p>
+                  <p><b>Extension:</b> {viewEmployee.extension || '-'}</p>
+                  <p><b>Civil Status:</b> {viewEmployee.civilStatus}</p>
+                  <p><b>Citizenship:</b> {viewEmployee.citizenship}</p>
+                  <p><b>Mobile No.:</b> {viewEmployee.mobileNo}</p>
+                  <p><b>Email:</b> {viewEmployee.email}</p>
+                  <p><b>Birthdate:</b> {viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</p>
+                  <p><b>Gender:</b> {viewEmployee.gender}</p>
+                </div>
+                <div className="address-list">
+                  <ul>
                   <li><b>Province:</b> {viewEmployee.address?.province}</li>
                   <li><b>City/Municipality:</b> {viewEmployee.address?.city}</li>
                   <li><b>Zip Code:</b> {viewEmployee.address?.zipCode}</li>
                   <li><b>Barangay:</b> {viewEmployee.address?.barangay}</li>
                 </ul>
+                </div>
               </div>
               <div className="modal-actions">
                 <button className="add-employee-button" onClick={handleCloseViewModal}>Close</button>
