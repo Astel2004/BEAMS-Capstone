@@ -63,13 +63,13 @@ const HRDashboardComp = () => {
             className={`user-nav-btn${activeTab === "list" ? " active" : ""}`}
             onClick={() => setActiveTab("list")}
           >
-            User List
+            USER LIST
           </button>
           <button
             className={`user-nav-btn${activeTab === "add" ? " active" : ""}`}
             onClick={() => setActiveTab("add")}
           >
-            Add User
+            ADD USER
           </button>
         </nav>
 
@@ -77,7 +77,7 @@ const HRDashboardComp = () => {
         <section className="user-management-content">
           {activeTab === "list" && (
             <div className="user-list-window">
-              <h3>User List</h3>
+              <h3>USER LIST</h3>
               <table className="user-list-table">
                 <thead>
                   <tr>
@@ -116,7 +116,7 @@ const HRDashboardComp = () => {
           )}
           {activeTab === "add" && (
             <div className="add-user-window">
-              <h3>Add New User</h3>
+              <h3>ADD NEW USER</h3>
               <form className="add-user-form">
                 <div className="add-user-form-row">
                   <label htmlFor="name">Employee Name:</label>
