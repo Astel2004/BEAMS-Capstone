@@ -103,7 +103,11 @@ const EmployeeRecordsComp = () => {
     }
   };
 
-  const handleAddEmployeeSubmit = (e) => {
+  const generateRandomId = () => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+  };
+
+  const handleAddEmployeeSubmit = async (e) => {
     e.preventDefault();
     // Validate required fields
     const requiredFields = [
@@ -126,12 +130,44 @@ const EmployeeRecordsComp = () => {
       alert("Please fill in all required fields: " + missingFields.join(", "));
       return;
     }
-    // You can add API call here to save the new employee
-    alert("Employee added:\n" + JSON.stringify(newEmployee, null, 2));
-    handleCloseModal();
+    // Prepare employee data for backend
+    const employeeData = {
+      ...newEmployee,
+      id: generateRandomId(),
+      position: "HR Staff",
+      step: "Step 1",
+      status: "Active"
+    };
+    try {
+      const response = await fetch("http://localhost:5000/api/employees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(employeeData)
+      });
+      if (!response.ok) throw new Error("Failed to add employee");
+      const saved = await response.json();
+      setActiveEmployees((prev) => [...prev, { ...employeeData, _id: saved.employee._id }]);
+      handleCloseModal();
+    } catch (error) {
+      alert("Error adding employee. Please try again.");
+    }
   };
 
   const handleCloseViewModal = () => setViewEmployee(null);
+
+  const handleDeleteEmployee = async (employeeId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
+    if (!confirmDelete) return;
+    try {
+      const response = await fetch(`http://localhost:5000/api/employees/${employeeId}`, {
+        method: "DELETE"
+      });
+      if (!response.ok) throw new Error("Failed to delete employee");
+      setActiveEmployees((prev) => prev.filter(emp => emp._id !== employeeId));
+    } catch (error) {
+      alert("Error deleting employee. Please try again.");
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -434,19 +470,27 @@ const EmployeeRecordsComp = () => {
             <tbody>
               {activeEmployees.length > 0 ? (
                 activeEmployees.map((employee) => (
-                  <tr key={employee.id}>
+                  <tr key={employee._id || employee.id}>
                     <td>{employee.id}</td>
-                    <td>{employee.name}</td>
+                    <td>{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
+                    <td>{employee.email}</td>
                     <td>{employee.position}</td>
-                    <td>{employee.department}</td>
                     <td>{employee.step}</td>
                     <td>{employee.status}</td>
                     <td>
                       <button
                         className="view-button"
-                        onClick={() => handleViewClick(employee.id)}
+                        onClick={() => handleViewClick(employee._id)}
                       >
                         View
+                      </button>
+                      <button
+                        className="delete-employee-icon"
+                        title="Delete Employee"
+                        style={{ marginLeft: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#e74c3c', fontSize: '1.2rem' }}
+                        onClick={() => handleDeleteEmployee(employee._id)}
+                      >
+                        🗑️
                       </button>
                     </td>
                   </tr>
