@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../styles/Dashboard.css"; // Assuming you have a CSS file for styling
+import "../styles/Users.css"; // Import the CSS file for user management styles
 import profileImage from "../assets/profile-user.png"; // Import the image
 import Image from "../assets/user.png"; // Import the image
 
 const HRDashboardComp = () => {
   const navigate = useNavigate(); // Initialize useNavigate
+  const [activeTab, setActiveTab] = useState("list");
   const handleLogout = () => {
     // Perform logout logic here (e.g., clearing tokens)
     alert("You have been logged out.");
@@ -52,40 +54,73 @@ const HRDashboardComp = () => {
         </header>
 
         <div className="dashboard-title">
-          <h2>DASHBOARD</h2>
+          <h2>User Management</h2>
         </div>
 
-        <section className="dashboard-overview">
-          <div className="card">
-            <h3>Employee Records</h3>
-            <p>
-              Total Employees: <strong>167</strong>
-            </p>
-            <button onClick={() => navigate("/employee-records")}>Manage Employees</button>
-          </div>
-          <div className="card">
-            <h3>Step Increments Tracker</h3>
-            <p>
-              Employees due for Step Increase: <strong>15</strong>
-            </p>
-            <button>Validate Eligibility</button>
-          </div>
-          <div className="card">
-            <h3>Reports</h3>
-            <p>
-              <span>Directory 📝</span>
-              <br />
-              <span>Demographics 📝</span>
-              <br />
-              <span>Status 📝</span>
-            </p>
-            <button>Generate Reports</button>
-          </div>
-        </section>
+        {/* Navigation Tabs for User Management */}
+        <nav className="user-management-nav">
+          <button
+            className={`user-nav-btn${activeTab === "list" ? " active" : ""}`}
+            onClick={() => setActiveTab("list")}
+          >
+            User List
+          </button>
+          <button
+            className={`user-nav-btn${activeTab === "add" ? " active" : ""}`}
+            onClick={() => setActiveTab("add")}
+          >
+            Add User
+          </button>
+        </nav>
 
-        <section className="dashboard-charts">
-          {/* Placeholder for charts */}
-          <div className="chart-placeholder">Chart Placeholder</div>
+        {/* Content area for user management pages */}
+        <section className="user-management-content">
+          {activeTab === "list" && (
+            <div className="user-list-window">
+              <h3>User List</h3>
+              <table className="user-list-table">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Birthdate</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Example rows, replace with dynamic data as needed */}
+                  <tr>
+                    <td>jdoe</td>
+                    <td>John Doe</td>
+                    <td>1990-01-01</td>
+                    <td>jdoe@email.com</td>
+                    <td>User</td>
+                    <td>Active</td>
+                    <td><button>View</button></td>
+                  </tr>
+                  <tr>
+                    <td>asmith</td>
+                    <td>Alice Smith</td>
+                    <td>1992-05-12</td>
+                    <td>asmith@email.com</td>
+                    <td>User</td>
+                    <td>Inactive</td>
+                    <td><button>View</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+          {activeTab === "add" && (
+            <div className="add-user-window">
+              {/* Add User content goes here */}
+              <h3>Add User</h3>
+              <p>Display the add user form here.</p>
+            </div>
+          )}
         </section>
       </main>
     </div>

@@ -1,0 +1,99 @@
+.user-list-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+
+.user-list-table th,
+.user-list-table td {
+  padding: 0.9rem 1.2rem;
+  text-align: center;
+  border: 1.5px solid #1abc9c;
+  font-size: 1rem;
+  background-clip: padding-box;
+}
+
+.user-list-table th {
+  background: #1abc9c;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: 1.5px solid #16a085;
+}
+
+.user-list-table tr:last-child td {
+  border-bottom: 1.5px solid #1abc9c;
+}
+
+.user-list-table tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+.user-list-table tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+.user-list-table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.user-list-table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.user-list-table button {
+  background: #0077cc;
+  color: #fff;
+  border: 2px solid #1abc9c;
+  border-radius: 6px;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+
+.user-list-table button:hover {
+  background: #005fa3;
+  border-color: #16a085;
+}
+
+.user-management-nav {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  border: 2.5px solid #1abc9c;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.user-nav-btn {
+  flex: 1 1 0;
+  border: none;
+  background: #1abc9c;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 1rem 0;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  border-radius: 0;
+  border-right: 1.5px solid #fff;
+  border-bottom: 2.5px solid #1abc9c;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.user-nav-btn:last-child {
+  border-right: none;
+}
+
+.user-nav-btn:hover, .user-nav-btn.active {
+  background: #16a085;
+  border-bottom: 2.5px solid #16a085;
+  z-index: 1;
+}
