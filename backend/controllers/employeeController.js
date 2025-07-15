@@ -4,13 +4,31 @@ const jwt = require('jsonwebtoken');
 
 // Create a new employee
 const createEmployee = async (req, res) => {
-  const { id, name, email, password, position, department, step, status } = req.body;
+  const {
+    surname,
+    firstname,
+    middlename,
+    extension,
+    civilStatus,
+    citizenship,
+    mobileNo,
+    email,
+    password,
+    contact,
+    birthdate,
+    gender,
+    address,
+    position,
+    department,
+    step,
+    status
+  } = req.body;
 
   try {
-    // Check if the employee ID or email already exists
-    const existingEmployee = await Employee.findOne({ $or: [{ id }, { email }] });
+    // Check if the email already exists
+    const existingEmployee = await Employee.findOne({ email });
     if (existingEmployee) {
-      return res.status(400).json({ message: 'Employee ID or email already exists' });
+      return res.status(400).json({ message: 'Employee email already exists' });
     }
 
     // Hash the password
@@ -18,14 +36,23 @@ const createEmployee = async (req, res) => {
 
     // Create a new employee
     const newEmployee = new Employee({
-      id, // Use the custom ID
-      name,
+      surname,
+      firstname,
+      middlename,
+      extension,
+      civilStatus,
+      citizenship,
+      mobileNo,
       email,
       password: hashedPassword,
+      contact,
+      birthdate,
+      gender,
+      address,
       position,
       department,
       step,
-      status,
+      status
     });
 
     await newEmployee.save();
@@ -66,13 +93,13 @@ const getEmployeeById = async (req, res) => {
 // Update an employee
 const updateEmployee = async (req, res) => {
   const { id } = req.params;
-  const { name, email, position, department, step, status } = req.body;
+  const updateData = req.body;
 
   try {
     const updatedEmployee = await Employee.findByIdAndUpdate(
       id,
-      { name, email, position, department, step, status },
-      { new: true } // Return the updated document
+      updateData,
+      { new: true }
     );
 
     if (!updatedEmployee) {
