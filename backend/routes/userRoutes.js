@@ -46,4 +46,33 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Add User route (for user management)
+router.post('/add-user', async (req, res) => {
+  const { name, email, password, role } = req.body;
+  try {
+    if (!name || !email || !password || !role) {
+      return res.status(400).json({ error: 'All fields are required.' });
+    }
+    // Check if user already exists
+    const existingUser = await UserAccounts.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: 'User already exists.' });
+    }
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Create new user
+    const newUser = new UserAccounts({
+      name,
+      email,
+      password: hashedPassword,
+      role
+    });
+    await newUser.save();
+    res.status(201).json({ message: 'User added successfully!' });
+  } catch (error) {
+    console.error('Add user error:', error);
+    res.status(500).json({ error: 'An error occurred. Please try again.' });
+  }
+});
+
 module.exports = router;

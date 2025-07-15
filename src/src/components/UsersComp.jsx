@@ -116,9 +116,26 @@ const HRDashboardComp = () => {
           )}
           {activeTab === "add" && (
             <div className="add-user-window">
-              {/* Add User content goes here */}
-              <h3>Add User</h3>
-              <p>Display the add user form here.</p>
+              <h3>Add New User</h3>
+              <form className="add-user-form">
+                <div className="add-user-form-row">
+                  <label htmlFor="name">Employee Name:</label>
+                  <input type="text" id="name" name="name" placeholder="Enter employee name" required />
+                </div>
+                <div className="add-user-form-row">
+                  <label htmlFor="email">User Email:</label>
+                  <input type="email" id="email" name="email" placeholder="Enter user email" required />
+                </div>
+                <div className="add-user-form-row">
+                  <label htmlFor="password">User Password:</label>
+                  <input type="password" id="password" name="password" placeholder="Enter password" required />
+                </div>
+                <div className="add-user-form-row">
+                  <label htmlFor="role">Role:</label>
+                  <input type="text" id="role" name="role" value="User" readOnly style={{ background: '#f4f4f4', color: '#888' }} />
+                </div>
+                <button type="submit" className="add-user-button">Add User</button>
+              </form>
             </div>
           )}
         </section>
