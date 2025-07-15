@@ -16,16 +16,8 @@ const EmployeeSchema = new mongoose.Schema({
   citizenship: { type: String, required: true, enum: ['Filipino', 'Dual Citizenship'] },
   mobileNo: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  contact: { type: String },
   birthdate: { type: Date, required: true },
-  gender: { type: String, required: true, enum: ['Male', 'Female'] },
-  address: { type: AddressSchema, required: true },
-  position: { type: String, required: true, enum: ['Accountant', 'HR Staff', 'IT Technician', 'Staff'] },
-  department: { type: String, required: true, enum: ['Finance', 'HR Dept', 'IT Dept'] },
-  step: { type: String, required: true },
-  status: { type: String, required: true, enum: ['Active', 'Inactive'] },
-  dateJoined: { type: Date, default: Date.now },
+  gender: { type: String, required: true, enum: ['Male', 'Female'] }
 });
 
 module.exports = mongoose.model('Employee', EmployeeSchema);

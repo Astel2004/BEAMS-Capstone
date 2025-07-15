@@ -13,28 +13,22 @@ const createEmployee = async (req, res) => {
     citizenship,
     mobileNo,
     email,
-    password,
-    contact,
     birthdate,
     gender,
-    address,
-    position,
-    department,
-    step,
-    status
+    address
   } = req.body;
 
   try {
+    // Debug: log the received body
+    console.log('Received body:', req.body);
+
     // Check if the email already exists
     const existingEmployee = await Employee.findOne({ email });
     if (existingEmployee) {
       return res.status(400).json({ message: 'Employee email already exists' });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new employee
+    // Create a new employee (no password field in schema, so don't hash or save it)
     const newEmployee = new Employee({
       surname,
       firstname,
@@ -44,15 +38,9 @@ const createEmployee = async (req, res) => {
       citizenship,
       mobileNo,
       email,
-      password: hashedPassword,
-      contact,
       birthdate,
       gender,
-      address,
-      position,
-      department,
-      step,
-      status
+      address
     });
 
     await newEmployee.save();
@@ -79,7 +67,7 @@ const getEmployeeById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const employee = await Employee.findOne({ id }); // Find by custom ID
+    const employee = await Employee.findById(id); // Find by MongoDB _id
     if (!employee) {
       return res.status(404).json({ message: 'Employee not found' });
     }
