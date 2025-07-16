@@ -3,6 +3,7 @@ const Employee = require('../models/Employees'); // Import the Employee model
 const jwt = require('jsonwebtoken');
 
 // Create a new employee
+
 const createEmployee = async (req, res) => {
   const {
     surname,
@@ -15,7 +16,11 @@ const createEmployee = async (req, res) => {
     email,
     birthdate,
     gender,
-    address
+    address,
+    status,
+    position,
+    step,
+    id
   } = req.body;
 
   try {
@@ -27,6 +32,7 @@ const createEmployee = async (req, res) => {
     if (existingEmployee) {
       return res.status(400).json({ message: 'Employee email already exists' });
     }
+
 
     // Create a new employee (no password field in schema, so don't hash or save it)
     const newEmployee = new Employee({
@@ -40,7 +46,11 @@ const createEmployee = async (req, res) => {
       email,
       birthdate,
       gender,
-      address
+      address,
+      status,
+      position,
+      step,
+      id
     });
 
     await newEmployee.save();

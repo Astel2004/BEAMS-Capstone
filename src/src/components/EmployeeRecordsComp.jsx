@@ -53,7 +53,16 @@ const EmployeeRecordsComp = () => {
       try {
         const response = await fetch("http://localhost:5000/api/employees");
         const data = await response.json();
-        setActiveEmployees(data.filter((employee) => employee.status === "Active"));
+        console.log("Fetched employees from backend:", data);
+        // Ensure all employees have id, position, step, and status (for legacy data)
+        const normalized = data.map(emp => ({
+          ...emp,
+          id: emp.id || emp._id?.slice(-4) || '-',
+          position: emp.position || '-',
+          step: emp.step || '-',
+          status: emp.status || 'Active',
+        }));
+        setActiveEmployees(normalized.filter((employee) => employee.status === "Active"));
       } catch (error) {
         console.error("Error fetching employee records:", error);
       }
@@ -474,12 +483,12 @@ const EmployeeRecordsComp = () => {
               {activeEmployees.length > 0 ? (
                 activeEmployees.map((employee) => (
                   <tr key={employee._id || employee.id}>
-                    <td>{employee.id}</td>
+                    <td>{employee.id || '-'}</td>
                     <td>{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.position}</td>
-                    <td>{employee.step}</td>
-                    <td>{employee.status}</td>
+                    <td>{employee.email || '-'}</td>
+                    <td>{employee.position || '-'}</td>
+                    <td>{employee.step || '-'}</td>
+                    <td>{employee.status || '-'}</td>
                     <td>
                       <button
                         className="view-button"

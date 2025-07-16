@@ -8,6 +8,7 @@ const AddressSchema = new mongoose.Schema({
 }, { _id: false });
 
 const EmployeeSchema = new mongoose.Schema({
+  id: { type: String, required: false },
   surname: { type: String, required: true },
   firstname: { type: String, required: true },
   middlename: { type: String, required: true },
@@ -18,7 +19,10 @@ const EmployeeSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   birthdate: { type: Date, required: true },
   gender: { type: String, required: true, enum: ['Male', 'Female'] },
-  address: { type: AddressSchema, required: true }
+  address: { type: AddressSchema, required: true },
+  status: { type: String, required: false },
+  position: { type: String, required: false },
+  step: { type: String, required: false }
 });
 
 module.exports = mongoose.model('Employee', EmployeeSchema);
