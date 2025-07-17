@@ -1,3 +1,9 @@
+.employee-table td:nth-child(3) {
+  word-break: break-all;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 1px;
+}
 /* View Employee Modal Makeover */
 .view-employee-modal {
   background: #fff;
@@ -114,50 +120,95 @@
   }
   
   /* Employee Table */
-  .employee-table {
-    overflow-x: auto;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-  }
-  .employee-table h3 {
-    text-align: center;
-    color: #333;
-    font-size: 1.5rem;
-    margin: 1rem 0;
-  }
-  
-  .employee-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .employee-table th,
-  .employee-table td {
-    padding: 0.75rem;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .employee-table th {
-    background-color: #1abc9c;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .employee-table td {
-    text-align: center;
-  }
-  
-  .employee-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .employee-table tr:hover {
-    background-color: #f1f1f1;
-  }
+
+.employee-table {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+}
+.employee-table h3 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Table wrapper for scrollable tbody */
+.employee-table-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+  display: block;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+
+.employee-table table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.employee-table colgroup col {
+  /* Adjust these widths as needed for your columns */
+  width: 11%;
+}
+.employee-table colgroup col.fullname-col {
+  width: 21%;
+}
+.employee-table colgroup col.email-col {
+  width: 16%;
+}
+.employee-table colgroup col.position-col {
+  width: 15%;
+}
+.employee-table colgroup col.step-col {
+  width: 9%;
+}
+.employee-table colgroup col.status-col {
+  width: 10%;
+}
+.employee-table colgroup col.action-col {
+  width: 20%;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.employee-table th {
+  background-color: #1abc9c;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-right: 1px solid #ddd;
+}
+.employee-table th:last-child {
+  border-right: none;
+}
+
+.employee-table td {
+  text-align: center;
+  background: inherit;
+}
+
+.employee-table tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.employee-table tr:hover td {
+  background-color: #f1f1f1;
+}
   
   /* View Button */
   .view-button {

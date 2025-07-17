@@ -467,53 +467,64 @@ const EmployeeRecordsComp = () => {
         {/* Employees Table */}
         <div className="employee-table">
           <h3>EMPLOYEE</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Employee Id</th>
-                <th>Full Name</th>
-                <th>Email Address</th>
-                <th>Position</th>
-                <th>Current Step</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {activeEmployees.length > 0 ? (
-                activeEmployees.map((employee) => (
-                  <tr key={employee._id || employee.id}>
-                    <td>{employee.id || '-'}</td>
-                    <td>{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
-                    <td>{employee.email || '-'}</td>
-                    <td>{employee.position || '-'}</td>
-                    <td>{employee.step || '-'}</td>
-                    <td>{employee.status || '-'}</td>
-                    <td>
-                      <button
-                        className="view-button"
-                        onClick={() => handleViewClick(employee._id)}
-                      >
-                        View
-                      </button>
-                      <button
-                        className="delete-employee-icon"
-                        title="Delete Employee"
-                        style={{ marginLeft: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#e74c3c', fontSize: '1.2rem' }}
-                        onClick={() => handleDeleteEmployee(employee._id)}
-                      >
-                        🗑️
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
+          <div className="employee-table-scroll">
+            <table>
+              <colgroup>
+                <col />
+                <col className="fullname-col" />
+                <col className="email-col" />
+                <col className="position-col" />
+                <col className="step-col" />
+                <col className="status-col" />
+                <col className="action-col" />
+              </colgroup>
+              <thead>
                 <tr>
-                  <td colSpan="7">No active employees found.</td>
+                  <th>Employee Id</th>
+                  <th>Full Name</th>
+                  <th>Email Address</th>
+                  <th>Position</th>
+                  <th>Current Step</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {activeEmployees.length > 0 ? (
+                  activeEmployees.map((employee) => (
+                    <tr key={employee._id || employee.id}>
+                      <td>{employee.id || '-'}</td>
+                      <td>{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
+                      <td>{employee.email || '-'}</td>
+                      <td>{employee.position || '-'}</td>
+                      <td>{employee.step || '-'}</td>
+                      <td>{employee.status || '-'}</td>
+                      <td>
+                        <button
+                          className="view-button"
+                          onClick={() => handleViewClick(employee._id)}
+                        >
+                          View
+                        </button>
+                        <button
+                          className="delete-employee-icon"
+                          title="Delete Employee"
+                          style={{ marginLeft: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#e74c3c', fontSize: '1.2rem' }}
+                          onClick={() => handleDeleteEmployee(employee._id)}
+                        >
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7">No active employees found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </div>
