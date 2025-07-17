@@ -138,7 +138,7 @@
 
 /* Table wrapper for scrollable tbody */
 .employee-table-scroll {
-  max-height: 400px;
+  max-height: 550px;
   overflow-y: auto;
   width: 100%;
   display: block;
