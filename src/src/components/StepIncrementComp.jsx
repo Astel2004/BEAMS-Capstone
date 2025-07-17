@@ -65,7 +65,7 @@ const StepIncrementComp = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="step-increment-content">
+      <main className="main-content">
         <header className="dashboard-header">
           <div className="logo">
             <h2>BEAMS</h2>

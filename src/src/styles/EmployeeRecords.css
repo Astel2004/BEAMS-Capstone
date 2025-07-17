@@ -1,17 +1,84 @@
+/* View Employee Modal Makeover */
+.view-employee-modal {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.view-employee-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1abc9c;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.view-employee-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.view-employee-section-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 0.7rem;
+  border-bottom: 1.5px solid #1abc9c;
+  padding-bottom: 0.2rem;
+}
+
+.view-employee-info-list, .view-employee-address-list {
+  background: #f7fafc;
+  border-radius: 8px;
+  text-align: left;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.view-employee-info-list p,
+.view-employee-address-list li {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.view-employee-address-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.view-employee-close-btn {
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  align-self: flex-end;
+  transition: background 0.2s;
+}
+.view-employee-close-btn:hover {
+  background: #219150;
+}
 /* General container for the employee records page */
 .employee-content {
     background-color: #f9f9f9;
     flex: 1;
     width: 70rem;
     max-height: 1800px; /* or your desired height */
-    overflow-y: auto;
-  }
-  
-  /* Dashboard title */
-  .dashboard-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
     font-weight: bold;
   }
   

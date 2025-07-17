@@ -201,7 +201,7 @@ const EmployeeRecordsComp = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="employee-content">
+      <main className="main-content">
         <header className="dashboard-header">
           <div className="logo">
             <h2>BEAMS</h2>
@@ -431,35 +431,35 @@ const EmployeeRecordsComp = () => {
         {/* View Employee Modal */}
         {viewEmployee && (
           <div className="modal-overlay">
-            <div className="modal-content">
-              <div className="View-Employee">
-                <h3>Employee Details</h3>
-              </div>
-              <div className="view-employee-details">
-                <div className="info-list">
-                  <p><b>Surname:</b> {viewEmployee.surname}</p>
-                  <p><b>First Name:</b> {viewEmployee.firstname}</p>
-                  <p><b>Middle Name:</b> {viewEmployee.middlename}</p>
-                  <p><b>Extension:</b> {viewEmployee.extension || '-'}</p>
-                  <p><b>Civil Status:</b> {viewEmployee.civilStatus}</p>
-                  <p><b>Citizenship:</b> {viewEmployee.citizenship}</p>
-                  <p><b>Mobile No.:</b> {viewEmployee.mobileNo}</p>
-                  <p><b>Email:</b> {viewEmployee.email}</p>
-                  <p><b>Birthdate:</b> {viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</p>
-                  <p><b>Gender:</b> {viewEmployee.gender}</p>
+            <div className="view-employee-modal">
+              <div className="view-employee-header">Employee Details</div>
+              <div className="view-employee-details-grid">
+                <div>
+                  <div className="view-employee-section-title">Personal Information</div>
+                  <div className="view-employee-info-list">
+                    <p><b>Surname:</b> {viewEmployee.surname}</p>
+                    <p><b>First Name:</b> {viewEmployee.firstname}</p>
+                    <p><b>Middle Name:</b> {viewEmployee.middlename}</p>
+                    <p><b>Extension:</b> {viewEmployee.extension || '-'}</p>
+                    <p><b>Civil Status:</b> {viewEmployee.civilStatus}</p>
+                    <p><b>Citizenship:</b> {viewEmployee.citizenship}</p>
+                    <p><b>Mobile No.:</b> {viewEmployee.mobileNo}</p>
+                    <p><b>Email:</b> {viewEmployee.email}</p>
+                    <p><b>Birthdate:</b> {viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</p>
+                    <p><b>Gender:</b> {viewEmployee.gender}</p>
+                  </div>
                 </div>
-                <div className="address-list">
-                  <ul>
-                  <li><b>Province:</b> {viewEmployee.address?.province}</li>
-                  <li><b>City/Municipality:</b> {viewEmployee.address?.city}</li>
-                  <li><b>Zip Code:</b> {viewEmployee.address?.zipCode}</li>
-                  <li><b>Barangay:</b> {viewEmployee.address?.barangay}</li>
-                </ul>
+                <div>
+                  <div className="view-employee-section-title">Address</div>
+                  <ul className="view-employee-address-list">
+                    <li><b>Province:</b> {viewEmployee.address?.province || '-'}</li>
+                    <li><b>City/Municipality:</b> {viewEmployee.address?.city || '-'}</li>
+                    <li><b>Zip Code:</b> {viewEmployee.address?.zipCode || '-'}</li>
+                    <li><b>Barangay:</b> {viewEmployee.address?.barangay || '-'}</li>
+                  </ul>
                 </div>
               </div>
-              <div className="modal-actions">
-                <button className="add-employee-button" onClick={handleCloseViewModal}>Close</button>
-              </div>
+              <button className="view-employee-close-btn" onClick={handleCloseViewModal}>Close</button>
             </div>
           </div>
         )}

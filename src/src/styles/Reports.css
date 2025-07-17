@@ -30,15 +30,6 @@
   
   /* Reports Content and Table */
   /* Main content styling for Reports to match Dashboard */
-.reports-content {
-  flex: 1;
-  display: flex;
-  width: 70rem;
-  flex-direction: column;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
 
 .reports-table {
   background-color: white;

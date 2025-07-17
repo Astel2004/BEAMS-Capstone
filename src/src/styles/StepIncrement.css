@@ -1,14 +1,3 @@
-/* Main content styling for Step Increment to match Dashboard */
-.step-increment-content {
-  flex: 1;
-  display: flex;
-  width: 70rem;
-  flex-direction: column;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
 /* Table container to match dashboard card/table look */
 .step-increment-table {
   background-color: white;

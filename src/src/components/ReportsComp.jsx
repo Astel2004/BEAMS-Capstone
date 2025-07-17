@@ -58,7 +58,7 @@ const ReportsComp = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="reports-content">
+      <main className="main-content">
         <header className="dashboard-header">
           <div className="logo">
             <h2>BEAMS</h2>
