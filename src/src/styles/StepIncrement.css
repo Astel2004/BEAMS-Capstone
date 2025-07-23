@@ -9,22 +9,21 @@
 .step-increment-sort-dropdown {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5px;
 }
 
 .step-increment-sort-label {
   font-weight: 500;
-  color: #333;
+  margin-right: 0.5rem;
 }
 
 .step-increment-sort-select {
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  background: #f9f9f9;
+  background: #fff;
   font-size: 1rem;
   color: #333;
-  outline: none;
   margin-right: 1rem;
   transition: border-color 0.2s;
 }
@@ -48,7 +47,7 @@
 }
 /* Scrollable wrapper for step increment table, matching employee records */
 .step-increment-table-scroll {
-  max-height: 600px;
+  max-height: 630px;
   overflow-y: auto;
   width: 100%;
   display: block;

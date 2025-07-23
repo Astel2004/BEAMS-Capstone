@@ -490,7 +490,6 @@ const EmployeeRecordsComp = () => {
 
         {/* Employees Table */}
         <div className="employee-table">
-          <h3>EMPLOYEE</h3>
           <div className="employee-table-scroll">
             <table>
               <colgroup>

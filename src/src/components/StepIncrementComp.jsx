@@ -103,7 +103,6 @@ const StepIncrementComp = () => {
 
         <div className="dashboard-title">
           <h2>Step Increment Tracker</h2>
-          <p>Eligible employees</p>
         </div>
 
         {/* Sort Dropdown above the Step Increment Table */}
