@@ -1,3 +1,26 @@
+/* Success Popup for Employee Added */
+.employee-success-popup {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #27ae60;
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  z-index: 2000;
+  animation: fadeInOut 3s linear;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
 .employee-table td:nth-child(3) {
   word-break: break-all;
   white-space: normal;
@@ -225,20 +248,49 @@
     background-color: #005fa3;
   }
   
-  /* Add Employee Button */
-  .add-employee-button {
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    margin-left: 1rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: background 0.2s;
-    margin-right: 5px;
-  }
+/* Employee Table Controls */
+.employee-table-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.employee-sort-dropdown {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.employee-sort-label {
+  font-weight: 500;
+}
+
+.employee-sort-select {
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-right: 1rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+}
+
+/* Add Employee Button */
+.add-employee-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  margin-left: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin-right: 5px;
+}
   
   .add-employee-button:hover {
     background-color: #219150;

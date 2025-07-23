@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const EmployeeRecordsComp = () => {
   const [activeEmployees, setActiveEmployees] = useState([]);
+  const [sortBy, setSortBy] = useState('lastname');
   const [showAddModal, setShowAddModal] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
     surname: "",
@@ -29,6 +30,7 @@ const EmployeeRecordsComp = () => {
     },
   });
   const [viewEmployee, setViewEmployee] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleViewClick = async (employeeId) => {
@@ -53,7 +55,6 @@ const EmployeeRecordsComp = () => {
       try {
         const response = await fetch("http://localhost:5000/api/employees");
         const data = await response.json();
-        console.log("Fetched employees from backend:", data);
         // Ensure all employees have id, position, step, and status (for legacy data)
         const normalized = data.map(emp => ({
           ...emp,
@@ -62,12 +63,15 @@ const EmployeeRecordsComp = () => {
           step: emp.step || '-',
           status: emp.status || 'Active',
         }));
-        setActiveEmployees(normalized.filter((employee) => employee.status === "Active"));
+        // Sort by last name (surname) by default
+        const sorted = normalized
+          .filter((employee) => employee.status === "Active")
+          .sort((a, b) => a.surname.localeCompare(b.surname));
+        setActiveEmployees(sorted);
       } catch (error) {
         console.error("Error fetching employee records:", error);
       }
     };
-
     fetchEmployees();
   }, []);
 
@@ -157,6 +161,8 @@ const EmployeeRecordsComp = () => {
       const saved = await response.json();
       setActiveEmployees((prev) => [...prev, { ...employeeData, _id: saved.employee._id }]);
       handleCloseModal();
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
       alert("Error adding employee. Please try again.");
     }
@@ -175,6 +181,15 @@ const EmployeeRecordsComp = () => {
       setActiveEmployees((prev) => prev.filter(emp => emp._id !== employeeId));
     } catch (error) {
       alert("Error deleting employee. Please try again.");
+    }
+  };
+
+  // Sorting handler
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSortBy(value);
+    if (value === 'lastname') {
+      setActiveEmployees(prev => [...prev].sort((a, b) => a.surname.localeCompare(b.surname)));
     }
   };
 
@@ -220,12 +235,21 @@ const EmployeeRecordsComp = () => {
           <h2>Employee Records</h2>
         </div>
 
-        {/* Add Employee above the Active Employees table */}
-        <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
-          <button className="add-employee-button" onClick={handleAddEmployeeClick}>
-            Add Employee
-          </button>
+      {/* Add Employee and Sort Dropdown above the Active Employees table */}
+      <div className="employee-table-controls">
+        <button className="add-employee-button" onClick={handleAddEmployeeClick}>
+          Add Employee
+        </button>
+        <div className="employee-sort-dropdown">
+          <label htmlFor="sortBy" className="employee-sort-label">Sort by:</label>
+          <select id="sortBy" value={sortBy} onChange={handleSortChange} className="employee-sort-select">
+            <option value="lastname">By Last Name</option>
+          </select>
         </div>
+      </div>
+      {showSuccess && (
+        <div className="employee-success-popup">Employee successfully added!</div>
+      )}
 
         {/* Add Employee Modal */}
         {showAddModal && (
