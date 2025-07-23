@@ -52,15 +52,15 @@
 }
 
 .view-employee-info-list p,
-.view-employee-address-list li {
+.view-employee-address-list p {
   margin: 0.3rem 0;
   font-size: 1rem;
   color: #444;
 }
 
-.view-employee-address-list {
-  list-style: none;
-  padding-left: 0;
+.view-employee-info-list u,
+.view-employee-address-list u {
+  text-align: right;
 }
 
 .view-employee-close-btn {

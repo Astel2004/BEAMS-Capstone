@@ -437,26 +437,26 @@ const EmployeeRecordsComp = () => {
                 <div>
                   <div className="view-employee-section-title">Personal Information</div>
                   <div className="view-employee-info-list">
-                    <p><b>Surname:</b> {viewEmployee.surname}</p>
-                    <p><b>First Name:</b> {viewEmployee.firstname}</p>
-                    <p><b>Middle Name:</b> {viewEmployee.middlename}</p>
-                    <p><b>Extension:</b> {viewEmployee.extension || '-'}</p>
-                    <p><b>Civil Status:</b> {viewEmployee.civilStatus}</p>
-                    <p><b>Citizenship:</b> {viewEmployee.citizenship}</p>
-                    <p><b>Mobile No.:</b> {viewEmployee.mobileNo}</p>
-                    <p><b>Email:</b> {viewEmployee.email}</p>
-                    <p><b>Birthdate:</b> {viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</p>
-                    <p><b>Gender:</b> {viewEmployee.gender}</p>
+                    <p><b>Surname:</b> <u>{viewEmployee.surname}</u> </p>
+                    <p><b>First Name:</b> <u>{viewEmployee.firstname}</u> </p>
+                    <p><b>Middle Name:</b> <u>{viewEmployee.middlename}</u> </p>
+                    <p><b>Extension:</b> <u>{viewEmployee.extension || '-'}</u> </p>
+                    <p><b>Civil Status:</b> <u>{viewEmployee.civilStatus}</u> </p>
+                    <p><b>Citizenship:</b> <u>{viewEmployee.citizenship}</u> </p>
+                    <p><b>Mobile No.:</b> <u>{viewEmployee.mobileNo}</u> </p>
+                    <p><b>Email:</b> <u>{viewEmployee.email}</u> </p>
+                    <p><b>Birthdate:</b> <u>{viewEmployee.birthdate ? new Date(viewEmployee.birthdate).toLocaleDateString() : '-'}</u> </p>
+                    <p><b>Gender:</b> <u>{viewEmployee.gender}</u> </p>
                   </div>
                 </div>
                 <div>
                   <div className="view-employee-section-title">Address</div>
-                  <ul className="view-employee-address-list">
-                    <li><b>Province:</b> {viewEmployee.address?.province || '-'}</li>
-                    <li><b>City/Municipality:</b> {viewEmployee.address?.city || '-'}</li>
-                    <li><b>Zip Code:</b> {viewEmployee.address?.zipCode || '-'}</li>
-                    <li><b>Barangay:</b> {viewEmployee.address?.barangay || '-'}</li>
-                  </ul>
+                  <div className="view-employee-address-list">
+                    <p><b>Province:</b> <u>{viewEmployee.address?.province || '-'}</u></p>
+                    <p><b>City/Municipality:</b> <u>{viewEmployee.address?.city || '-'}</u></p>
+                    <p><b>Zip Code:</b> <u>{viewEmployee.address?.zipCode || '-'}</u></p>
+                    <p><b>Barangay:</b> <u>{viewEmployee.address?.barangay || '-'}</u></p>
+                  </div>
                 </div>
               </div>
               <button className="view-employee-close-btn" onClick={handleCloseViewModal}>Close</button>
