@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const StepIncrementComp = () => {
   const [eligibleEmployees, setEligibleEmployees] = useState([]); // State for employees eligible for step increment
+  const [sortBy, setSortBy] = useState('lastname');
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Fetch eligible employees from the backend
@@ -22,7 +23,14 @@ const StepIncrementComp = () => {
           return currentStep < 5; // Example logic: Eligible if current step is less than 5
         });
 
-        setEligibleEmployees(eligible);
+        // Sort by last name by default
+        const sorted = eligible.sort((a, b) => {
+          // Use surname if available, else fallback to name
+          const aName = a.surname || a.name || '';
+          const bName = b.surname || b.name || '';
+          return aName.localeCompare(bName);
+        });
+        setEligibleEmployees(sorted);
       } catch (error) {
         console.error("Error fetching eligible employees:", error);
       }
@@ -30,6 +38,19 @@ const StepIncrementComp = () => {
 
     fetchEligibleEmployees();
   }, []);
+
+  // Sorting handler
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSortBy(value);
+    if (value === 'lastname') {
+      setEligibleEmployees(prev => [...prev].sort((a, b) => {
+        const aName = a.surname || a.name || '';
+        const bName = b.surname || b.name || '';
+        return aName.localeCompare(bName);
+      }));
+    }
+  };
 
   const handleLogout = () => {
     // Perform logout logic here (e.g., clearing tokens)
@@ -85,56 +106,67 @@ const StepIncrementComp = () => {
           <p>Eligible employees</p>
         </div>
 
-        {/* Step Increment Table */}
+        {/* Sort Dropdown above the Step Increment Table */}
+        <div className="step-increment-table-controls">
+          <div className="step-increment-sort-dropdown">
+            <label htmlFor="sortBy" className="step-increment-sort-label">Sort by:</label>
+            <select id="sortBy" value={sortBy} onChange={handleSortChange} className="step-increment-sort-select">
+              <option value="lastname">By Last Name</option>
+            </select>
+          </div>
+        </div>
+        {/* Step Increment Table with Scroll */}
         <div className="step-increment-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Employee Id</th>
-                <th>Full Name</th>
-                <th>Salary Grade</th>
-                <th>Current Step</th>
-                <th>Next Step</th>
-                <th>Due Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {eligibleEmployees.length > 0 ? (
-                eligibleEmployees.map((employee) => {
-                  const currentStep = parseInt(employee.step.replace("Step ", ""));
-                  const nextStep = `Step ${currentStep + 1}`;
-                  const dueDate = new Date();
-                  dueDate.setDate(dueDate.getDate() + 30); // Example: Due date is 30 days from now
-
-                  return (
-                    <tr key={employee.id}>
-                      <td>{employee.id}</td>
-                      <td>{employee.name}</td>
-                      <td>{employee.salaryGrade || "N/A"}</td>
-                      <td>{employee.step}</td>
-                      <td>{nextStep}</td>
-                      <td>{dueDate.toLocaleDateString()}</td>
-                      <td>Pending</td>
-                      <td>
-                        <button
-                          className="notification-button"
-                          onClick={() => handleSendNotification(employee.id)}
-                        >
-                          Send Notification
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
+          <div className="step-increment-table-scroll">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="8">No employees eligible for step increment.</td>
+                  <th>Employee Id</th>
+                  <th>Full Name</th>
+                  <th>Salary Grade</th>
+                  <th>Current Step</th>
+                  <th>Next Step</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {eligibleEmployees.length > 0 ? (
+                  eligibleEmployees.map((employee) => {
+                    const currentStep = parseInt(employee.step.replace("Step ", ""));
+                    const nextStep = `Step ${currentStep + 1}`;
+                    const dueDate = new Date();
+                    dueDate.setDate(dueDate.getDate() + 30); // Example: Due date is 30 days from now
+
+                    return (
+                      <tr key={employee.id}>
+                        <td>{employee.id}</td>
+                        <td>{employee.surname ? `${employee.surname} ${employee.firstname || ''} ${employee.middlename || ''} ${employee.extension || ''}` : employee.name}</td>
+                        <td>{employee.salaryGrade || "N/A"}</td>
+                        <td>{employee.step}</td>
+                        <td>{nextStep}</td>
+                        <td>{dueDate.toLocaleDateString()}</td>
+                        <td>Pending</td>
+                        <td>
+                          <button
+                            className="notification-button"
+                            onClick={() => handleSendNotification(employee.id)}
+                          >
+                            Send Notification
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="8">No employees eligible for step increment.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </div>
