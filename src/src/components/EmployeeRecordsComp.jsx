@@ -492,15 +492,6 @@ const EmployeeRecordsComp = () => {
         <div className="employee-table">
           <div className="employee-table-scroll">
             <table>
-              <colgroup>
-                <col />
-                <col className="fullname-col" />
-                <col className="email-col" />
-                <col className="position-col" />
-                <col className="step-col" />
-                <col className="status-col" />
-                <col className="action-col" />
-              </colgroup>
               <thead>
                 <tr>
                   <th>Employee Id</th>
@@ -516,13 +507,13 @@ const EmployeeRecordsComp = () => {
                 {activeEmployees.length > 0 ? (
                   activeEmployees.map((employee) => (
                     <tr key={employee._id || employee.id}>
-                      <td>{employee.id || '-'}</td>
-                      <td>{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
-                      <td>{employee.email || '-'}</td>
-                      <td>{employee.position || '-'}</td>
-                      <td>{employee.step || '-'}</td>
-                      <td>{employee.status || '-'}</td>
-                      <td>
+                      <td className="employee-data">{employee.id || '-'}</td>
+                      <td className="lastName">{employee.surname} {employee.firstname} {employee.middlename} {employee.extension ? employee.extension : ''}</td>
+                      <td className="employee-data">{employee.email || '-'}</td>
+                      <td className="employee-data">{employee.position || '-'}</td>
+                      <td className="employee-data">{employee.step || '-'}</td>
+                      <td className="employee-data">{employee.status || '-'}</td>
+                      <td className="employee-data">
                         <button
                           className="view-button"
                           onClick={() => handleViewClick(employee._id)}

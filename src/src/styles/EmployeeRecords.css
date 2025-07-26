@@ -173,34 +173,19 @@
 .employee-table table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
-.employee-table colgroup col {
-  /* Adjust these widths as needed for your columns */
-  width: 11%;
+.employee-table th{
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #ddd;
 }
-.employee-table colgroup col.fullname-col {
-  width: 21%;
+.employee-data {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #ddd;
 }
-.employee-table colgroup col.email-col {
-  width: 16%;
-}
-.employee-table colgroup col.position-col {
-  width: 15%;
-}
-.employee-table colgroup col.step-col {
-  width: 9%;
-}
-.employee-table colgroup col.status-col {
-  width: 10%;
-}
-.employee-table colgroup col.action-col {
-  width: 20%;
-}
-
-.employee-table th,
-.employee-table td {
+.lastName {
   padding: 0.75rem;
   text-align: left;
   border: 1px solid #ddd;
@@ -220,10 +205,6 @@
   border-right: none;
 }
 
-.employee-table td {
-  text-align: center;
-  background: inherit;
-}
 
 .employee-table tr:nth-child(even) td {
   background-color: #f9f9f9;
@@ -374,12 +355,7 @@
   font-weight: 500;
 }
 
-.add-employee-form legend {
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 0.5rem;
-  width: 100%;
-}
+
 
 .add-employee-form input,
 .add-employee-form select {
@@ -427,11 +403,7 @@
 }
 
 
-.add-employee-form legend {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  width: 100%;
-}
+
 
 .modal-actions {
   display: flex;
