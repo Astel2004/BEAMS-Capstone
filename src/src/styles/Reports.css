@@ -51,10 +51,11 @@
 
 /* Report Controls */
 .report-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
   }
   
   .report-controls select {
@@ -79,3 +80,25 @@
     background-color: #16a085;
   }
   
+  /* Sort Dropdown Styles for Reports Table */
+.reports-sort-dropdown {
+  display: flex;
+  align-items: center;
+}
+.reports-sort-label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.reports-sort-select {
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 1rem;
+  color: #333;
+  margin-right: 1rem;
+  transition: border-color 0.2s;
+}
+.reports-sort-select:focus {
+  border-color: #007bff;
+}

@@ -7,8 +7,31 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const ReportsComp = () => {
   const [employees, setEmployees] = useState([]); // State to store employee data
+  const [displayedEmployees, setDisplayedEmployees] = useState([]); // State for sorted/filtered employees
   const [selectedReport, setSelectedReport] = useState(""); // State for selected report type
+  const [sortBy, setSortBy] = useState('lastname');
   const navigate = useNavigate(); // Initialize useNavigate
+
+  // Sorting handler
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  // Sort employees whenever sortBy or employees change
+  useEffect(() => {
+    let sorted = [...employees];
+    if (sortBy === 'lastname') {
+      sorted.sort((a, b) => {
+        const aName = a.surname || a.name || '';
+        const bName = b.surname || b.name || '';
+        return aName.localeCompare(bName);
+      });
+    }
+    setDisplayedEmployees(sorted);
+  }, [sortBy, employees]);
+
+
+  // Sorting state and handler
 
   // Fetch employee data from the backend
   useEffect(() => {
@@ -77,29 +100,31 @@ const ReportsComp = () => {
           <h2>Reports and Analytics</h2>
         </div>
 
-        {/* Report Controls */}
+        {/* Report Controls and Sort Dropdown */}
         <div className="report-controls">
-          <select
-            value={selectedReport}
-            onChange={(e) => setSelectedReport(e.target.value)}
-          >
-            <option value="">Select Report Type</option>
-            <option value="Employee Directory Report">
-              Employee Directory Report
-            </option>
-            <option value="Employee Demographics Report">
-              Employee Demographics Report
-            </option>
-            <option value="Employment Status Report">
-              Employment Status Report
-            </option>
-          </select>
-          <button
-            className="generate-report-button"
-            onClick={handleGenerateReport}
-          >
-            Generate Report
-          </button>
+          <div className="report-controls-group">
+            <select
+              value={selectedReport}
+              onChange={(e) => setSelectedReport(e.target.value)}
+            >
+              <option value="">Select Report Type</option>
+              <option value="Employee Directory Report">Employee Directory Report</option>
+              <option value="Employee Demographics Report">Employee Demographics Report</option>
+              <option value="Employment Status Report">Employment Status Report</option>
+            </select>
+            <button
+              className="generate-report-button"
+              onClick={handleGenerateReport}
+            >
+              Generate Report
+            </button>
+          </div>
+          <div className="reports-sort-dropdown">
+            <label htmlFor="sortBy" className="reports-sort-label">Sort by:</label>
+            <select id="sortBy" value={sortBy} onChange={handleSortChange} className="reports-sort-select">
+              <option value="lastname">By Last Name</option>
+            </select>
+          </div>
         </div>
 
         {/* Employee Table with Scroll and Sticky Header */}
@@ -117,11 +142,11 @@ const ReportsComp = () => {
                 </tr>
               </thead>
               <tbody>
-                {employees.length > 0 ? (
-                  employees.map((employee) => (
+                {displayedEmployees.length > 0 ? (
+                  displayedEmployees.map((employee) => (
                     <tr key={employee.id}>
                       <td>{employee.id}</td>
-                      <td>{employee.name}</td>
+                      <td>{employee.surname ? `${employee.surname} ${employee.firstname || ''} ${employee.middlename || ''} ${employee.extension || ''}` : employee.name}</td>
                       <td>{employee.department}</td>
                       <td>{employee.position}</td>
                       <td>{employee.email}</td>
