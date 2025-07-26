@@ -140,14 +140,14 @@ const StepIncrementComp = () => {
 
                     return (
                       <tr key={employee.id}>
-                        <td>{employee.id}</td>
-                        <td>{employee.surname ? `${employee.surname} ${employee.firstname || ''} ${employee.middlename || ''} ${employee.extension || ''}` : employee.name}</td>
-                        <td>{employee.salaryGrade || "N/A"}</td>
-                        <td>{employee.step}</td>
-                        <td>{nextStep}</td>
-                        <td>{dueDate.toLocaleDateString()}</td>
-                        <td>Pending</td>
-                        <td>
+                        <td className="step">{employee.id}</td>
+                        <td className="lastName">{employee.surname ? `${employee.surname} ${employee.firstname || ''} ${employee.middlename || ''} ${employee.extension || ''}` : employee.name}</td>
+                        <td className="step">{employee.salaryGrade || "N/A"}</td>
+                        <td className="step">{employee.step}</td>
+                        <td className="step">{nextStep}</td>
+                        <td className="step">{dueDate.toLocaleDateString()}</td>
+                        <td className="step">Pending</td>
+                        <td className="step">
                           <button
                             className="notification-button"
                             onClick={() => handleSendNotification(employee.id)}

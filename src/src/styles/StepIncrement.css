@@ -73,10 +73,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .step-increment-table th,
-  .step-increment-table td {
+  .step-increment-table th{
     padding: 0.75rem;
     text-align: center;
+    border: 1px solid #ddd;
+  }
+  .step{
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  .lastName {
+    padding: 0.75rem;
+    text-align: left;
     border: 1px solid #ddd;
   }
   
