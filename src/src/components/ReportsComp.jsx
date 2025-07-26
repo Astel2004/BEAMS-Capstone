@@ -102,38 +102,40 @@ const ReportsComp = () => {
           </button>
         </div>
 
-        {/* Employee Table */}
+        {/* Employee Table with Scroll and Sticky Header */}
         <div className="reports-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Employee Id</th>
-                <th>Full Name</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>Email Address</th>
-                <th>Employment Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.length > 0 ? (
-                employees.map((employee) => (
-                  <tr key={employee.id}>
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.department}</td>
-                    <td>{employee.position}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.status}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="reports-table-scroll">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="6">No employee data available.</td>
+                  <th>Employee Id</th>
+                  <th>Full Name</th>
+                  <th>Department</th>
+                  <th>Position</th>
+                  <th>Email Address</th>
+                  <th>Employment Status</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {employees.length > 0 ? (
+                  employees.map((employee) => (
+                    <tr key={employee.id}>
+                      <td>{employee.id}</td>
+                      <td>{employee.name}</td>
+                      <td>{employee.department}</td>
+                      <td>{employee.position}</td>
+                      <td>{employee.email}</td>
+                      <td>{employee.status}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6">No employee data available.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </div>

@@ -1,35 +1,5 @@
-/* Report Controls */
-.report-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .report-controls select {
-    margin-left: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .generate-report-button {
-    padding: 0.5rem 1rem;
-    background-color: #1abc9c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .generate-report-button:hover {
-    background-color: #16a085;
-  }
-  
-  /* Reports Content and Table */
-  /* Main content styling for Reports to match Dashboard */
+/* Reports Content and Table */
+/* Main content styling for Reports to match Dashboard */
 
 .reports-table {
   background-color: white;
@@ -37,8 +7,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 1rem;
   padding: 1rem;
-  width: 100%;
-  max-width: 925px;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -70,3 +39,43 @@
   .reports-table tr:hover {
     background-color: #f1f1f1;
   }
+
+/* Scrollable wrapper for reports table */
+.reports-table-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  width: 100%;
+}
+
+/* Report Controls */
+.report-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .report-controls select {
+    margin-left: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .generate-report-button {
+    padding: 0.5rem 1rem;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .generate-report-button:hover {
+    background-color: #16a085;
+  }
+  
