@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../styles/Dashboard.css"; // Assuming you have a CSS file for styling
 import "../styles/Users.css"; // Import the CSS file for user management styles
@@ -8,6 +8,31 @@ import Image from "../assets/user.png"; // Import the image
 const HRDashboardComp = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [activeTab, setActiveTab] = useState("list");
+  // Example: Replace with real data fetching
+  const [users, setUsers] = useState([]);
+  // Employees for dropdown
+  const [employees, setEmployees] = useState([]);
+
+  // Fetch employees for dropdown
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/employees");
+        const data = await response.json();
+        // Sort by surname (or name if no surname)
+        const sorted = data.slice().sort((a, b) => {
+          const aName = a.surname ? a.surname.toLowerCase() : (a.name || '').toLowerCase();
+          const bName = b.surname ? b.surname.toLowerCase() : (b.name || '').toLowerCase();
+          return aName.localeCompare(bName);
+        });
+        setEmployees(sorted);
+      } catch (error) {
+        console.error("Error fetching employees for dropdown:", error);
+      }
+    };
+    fetchEmployees();
+  }, []);
+  
   const handleLogout = () => {
     // Perform logout logic here (e.g., clearing tokens)
     alert("You have been logged out.");
@@ -31,7 +56,7 @@ const HRDashboardComp = () => {
             <li onClick={() => navigate("/step-increment")}>Step Increment Tracker</li>
             <li onClick={() => navigate("/reports")}>Reports & Analytics</li>
             <li onClick={() => navigate("/users")}>User Management</li>
-<li onClick={handleLogout}>Log out</li>          </ul>
+            <li onClick={handleLogout}>Log out</li>          </ul>
         </nav>
       </aside>
 
@@ -91,25 +116,23 @@ const HRDashboardComp = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Example rows, replace with dynamic data as needed */}
+                {users.length === 0 ? (
                   <tr>
-                    <td>jdoe</td>
-                    <td>John Doe</td>
-                    <td>1990-01-01</td>
-                    <td>jdoe@email.com</td>
-                    <td>User</td>
-                    <td>Active</td>
-                    <td><button>View</button></td>
+                    <td colSpan="7" style={{ textAlign: 'center', color: '#888' }}>No users found.</td>
                   </tr>
-                  <tr>
-                    <td>asmith</td>
-                    <td>Alice Smith</td>
-                    <td>1992-05-12</td>
-                    <td>asmith@email.com</td>
-                    <td>User</td>
-                    <td>Inactive</td>
-                    <td><button>View</button></td>
-                  </tr>
+                ) : (
+                  users.map((user, idx) => (
+                    <tr key={user._id || idx}>
+                      <td>{user.username}</td>
+                      <td>{user.name}</td>
+                      <td>{user.birthdate}</td>
+                      <td>{user.email}</td>
+                      <td>{user.role}</td>
+                      <td>{user.status}</td>
+                      <td><button>View</button></td>
+                    </tr>
+                  ))
+                )}
                 </tbody>
               </table>
             </div>
@@ -118,22 +141,36 @@ const HRDashboardComp = () => {
             <div className="add-user-window">
               <h3>ADD NEW USER</h3>
               <form className="add-user-form">
+
                 <div className="add-user-form-row">
-                  <label htmlFor="name">Employee Name:</label>
-                  <input type="text" id="name" name="name" placeholder="Enter employee name" required />
+                  <label htmlFor="employee">Employee:</label>
+                  <select id="employee" name="employee" required className="employee-dropdown">
+                    <option value="">Select Employee</option>
+                    {employees
+                      .filter(emp => !users.some(user => user.employeeId === emp._id))
+                      .map(emp => (
+                        <option key={emp._id} value={emp._id}>
+                          {emp.surname ? `${emp.surname} ${emp.firstname || ''} ${emp.middlename || ''} ${emp.extension || ''}`.trim() : emp.name}
+                        </option>
+                      ))}
+                  </select>
                 </div>
+
                 <div className="add-user-form-row">
-                  <label htmlFor="email">User Email:</label>
+                  <label htmlFor="email">Create Email:</label>
                   <input type="email" id="email" name="email" placeholder="Enter user email" required />
                 </div>
+
                 <div className="add-user-form-row">
-                  <label htmlFor="password">User Password:</label>
+                  <label htmlFor="password">Create Password:</label>
                   <input type="password" id="password" name="password" placeholder="Enter password" required />
                 </div>
+
                 <div className="add-user-form-row">
                   <label htmlFor="role">Role:</label>
                   <input type="text" id="role" name="role" value="User" readOnly style={{ background: '#f4f4f4', color: '#888' }} />
                 </div>
+
                 <button type="submit" className="add-user-button">Add User</button>
               </form>
             </div>
