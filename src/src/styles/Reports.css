@@ -19,10 +19,15 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .reports-table th,
-  .reports-table td {
+  .reports-table th{
     padding: 0.75rem;
     text-align: center;
+    border: 1px solid #ddd;
+  }
+
+  .reports-table td {
+    padding: 0.75rem;
+    text-align: left;
     border: 1px solid #ddd;
   }
   
