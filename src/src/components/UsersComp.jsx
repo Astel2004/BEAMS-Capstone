@@ -13,12 +13,32 @@ const UsersComp = () => {
   // Employees for dropdown
   const [employees, setEmployees] = useState([]);
 
+  // Fetch users for user list
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/user/list");
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          setUsers([]);
+          console.error('User list API did not return an array:', data);
+        }
+      } catch (error) {
+        setUsers([]);
+        console.error("Error fetching users for user list:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   // Add user form state
   const [addUserForm, setAddUserForm] = useState({
     employeeId: '',
     email: '',
     password: '',
-    role: 'User',
+    role: 'Employee',
   });
 
   // Handle add user form submit
@@ -48,7 +68,7 @@ const UsersComp = () => {
       const data = await response.json();
       if (response.ok) {
         alert('User added successfully!');
-        setAddUserForm({ employeeId: '', email: '', password: '', role: 'User' });
+        setAddUserForm({ employeeId: '', email: '', password: '', role: 'Employee' });
         setActiveTab('list');
         // Refresh user list so dropdown updates
         const usersRes = await fetch("http://localhost:5000/api/user/list");
@@ -161,9 +181,7 @@ const UsersComp = () => {
               <table className="user-list-table">
                 <thead>
                   <tr>
-                    <th>Username</th>
                     <th>Name</th>
-                    <th>Birthdate</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Status</th>
@@ -173,14 +191,12 @@ const UsersComp = () => {
                 <tbody>
                 {Array.isArray(users) && users.length === 0 ? (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: 'center', color: '#888' }}>No users found.</td>
+                    <td colSpan="5" style={{ textAlign: 'center', color: '#888' }}>No users found.</td>
                   </tr>
                 ) : Array.isArray(users) ? (
                   users.map((user, idx) => (
                     <tr key={user._id || idx}>
-                      <td>{user.username}</td>
                       <td>{user.name}</td>
-                      <td>{user.birthdate}</td>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>{user.status}</td>
@@ -189,7 +205,7 @@ const UsersComp = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: 'center', color: 'red' }}>User list error</td>
+                    <td colSpan="5" style={{ textAlign: 'center', color: 'red' }}>User list error</td>
                   </tr>
                 )}
                 </tbody>
@@ -267,6 +283,6 @@ const UsersComp = () => {
       </main>
     </div>
   );
-};
+}
 
 export default UsersComp;
