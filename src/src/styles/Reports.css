@@ -35,6 +35,9 @@
     background-color: #1abc9c;
     color: white;
     font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
   
   .reports-table tr:nth-child(even) {
