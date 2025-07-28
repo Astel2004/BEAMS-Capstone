@@ -5,7 +5,7 @@ import "../styles/Users.css"; // Import the CSS file for user management styles
 import profileImage from "../assets/profile-user.png"; // Import the image
 import Image from "../assets/user.png"; // Import the image
 
-const HRDashboardComp = () => {
+const UsersComp = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [activeTab, setActiveTab] = useState("list");
   // Example: Replace with real data fetching
@@ -53,7 +53,13 @@ const HRDashboardComp = () => {
         // Refresh user list so dropdown updates
         const usersRes = await fetch("http://localhost:5000/api/user/list");
         const usersData = await usersRes.json();
-        setUsers(usersData);
+        console.log('Fetched users after add:', usersData);
+        if (Array.isArray(usersData)) {
+          setUsers(usersData);
+        } else {
+          setUsers([]);
+          console.error('User list API did not return an array:', usersData);
+        }
       } else {
         alert(data.error || 'Failed to add user.');
       }
@@ -165,11 +171,11 @@ const HRDashboardComp = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {users.length === 0 ? (
+                {Array.isArray(users) && users.length === 0 ? (
                   <tr>
                     <td colSpan="7" style={{ textAlign: 'center', color: '#888' }}>No users found.</td>
                   </tr>
-                ) : (
+                ) : Array.isArray(users) ? (
                   users.map((user, idx) => (
                     <tr key={user._id || idx}>
                       <td>{user.username}</td>
@@ -181,6 +187,10 @@ const HRDashboardComp = () => {
                       <td><button>View</button></td>
                     </tr>
                   ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" style={{ textAlign: 'center', color: 'red' }}>User list error</td>
+                  </tr>
                 )}
                 </tbody>
               </table>
@@ -259,4 +269,4 @@ const HRDashboardComp = () => {
   );
 };
 
-export default HRDashboardComp;
+export default UsersComp;

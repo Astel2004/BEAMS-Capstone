@@ -74,6 +74,17 @@ router.post('/add-user', async (req, res) => {
     console.error('Add user error:', error);
     res.status(500).json({ error: 'An error occurred. Please try again.' });
   }
+// Get all users (for user management)
+router.get('/list', async (req, res) => {
+  try {
+    const users = await UserAccounts.find({});
+    res.json(users);
+  } catch (error) {
+    console.error('Fetch users error:', error);
+    res.status(500).json({ error: 'An error occurred. Please try again.' });
+  }
+});
+
 });
 
 module.exports = router;
