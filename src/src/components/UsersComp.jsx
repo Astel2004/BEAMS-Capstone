@@ -13,6 +13,55 @@ const HRDashboardComp = () => {
   // Employees for dropdown
   const [employees, setEmployees] = useState([]);
 
+  // Add user form state
+  const [addUserForm, setAddUserForm] = useState({
+    employeeId: '',
+    email: '',
+    password: '',
+    role: 'User',
+  });
+
+  // Handle add user form submit
+  const handleAddUserSubmit = async (e) => {
+    e.preventDefault();
+    // Find selected employee for name
+    const selectedEmployee = employees.find(emp => emp._id === addUserForm.employeeId);
+    if (!selectedEmployee) {
+      alert('Please select a valid employee.');
+      return;
+    }
+    const payload = {
+      employeeId: addUserForm.employeeId,
+      name: selectedEmployee.surname
+        ? `${selectedEmployee.surname} ${selectedEmployee.firstname || ''} ${selectedEmployee.middlename || ''} ${selectedEmployee.extension || ''}`.trim()
+        : selectedEmployee.name,
+      email: addUserForm.email,
+      password: addUserForm.password,
+      role: addUserForm.role,
+    };
+    try {
+      const response = await fetch('http://localhost:5000/api/user/add-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert('User added successfully!');
+        setAddUserForm({ employeeId: '', email: '', password: '', role: 'User' });
+        setActiveTab('list');
+        // Refresh user list so dropdown updates
+        const usersRes = await fetch("http://localhost:5000/api/user/list");
+        const usersData = await usersRes.json();
+        setUsers(usersData);
+      } else {
+        alert(data.error || 'Failed to add user.');
+      }
+    } catch (error) {
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   // Fetch employees for dropdown
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -140,11 +189,17 @@ const HRDashboardComp = () => {
           {activeTab === "add" && (
             <div className="add-user-window">
               <h3>ADD NEW USER</h3>
-              <form className="add-user-form">
-
+              <form className="add-user-form" onSubmit={handleAddUserSubmit}>
                 <div className="add-user-form-row">
                   <label htmlFor="employee">Employee:</label>
-                  <select id="employee" name="employee" required className="employee-dropdown">
+                  <select
+                    id="employee"
+                    name="employee"
+                    required
+                    className="employee-dropdown"
+                    value={addUserForm.employeeId}
+                    onChange={e => setAddUserForm(f => ({ ...f, employeeId: e.target.value }))}
+                  >
                     <option value="">Select Employee</option>
                     {employees
                       .filter(emp => !users.some(user => user.employeeId === emp._id))
@@ -158,17 +213,40 @@ const HRDashboardComp = () => {
 
                 <div className="add-user-form-row">
                   <label htmlFor="email">Create Email:</label>
-                  <input type="email" id="email" name="email" placeholder="Enter user email" required />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter user email"
+                    required
+                    value={addUserForm.email}
+                    onChange={e => setAddUserForm(f => ({ ...f, email: e.target.value }))}
+                  />
                 </div>
 
                 <div className="add-user-form-row">
                   <label htmlFor="password">Create Password:</label>
-                  <input type="password" id="password" name="password" placeholder="Enter password" required />
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                    value={addUserForm.password}
+                    onChange={e => setAddUserForm(f => ({ ...f, password: e.target.value }))}
+                  />
                 </div>
 
                 <div className="add-user-form-row">
                   <label htmlFor="role">Role:</label>
-                  <input type="text" id="role" name="role" value="User" readOnly style={{ background: '#f4f4f4', color: '#888' }} />
+                  <input
+                    type="text"
+                    id="role"
+                    name="role"
+                    value={addUserForm.role}
+                    readOnly
+                    style={{ background: '#f4f4f4', color: '#888' }}
+                  />
                 </div>
 
                 <button type="submit" className="add-user-button">Add User</button>
